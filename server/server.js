@@ -87,6 +87,6 @@ app.use(attendanceRouter);
     var port = server.address().port
     console.log("Ung dung Node.js dang lang nghe tai dia chi: http://%s:%s", host, port)
   });
-  serverWS.listen(5000);
-  var chatConnection = new IOConnection(serverWS);
+
+  var chatConnection = new IOConnection(server); // Đảm bảo IOConnection nhận server chính
 })()
