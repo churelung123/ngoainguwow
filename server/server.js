@@ -3,11 +3,32 @@ var app = express();
 var cookieParser = require('cookie-parser')
 var router = express.Router();
 var fileUpload = require('express-fileupload')
+var cors = require('cors');
 var tempFileDir = "/public/data";
 var json2xls = require('json2xls');
 if (process.platform == "darwin") {
   tempFileDir = "." + tempFileDir
 }
+
+const allowedOrigins = [
+    'http://localhost:3000', // Cho phát triển cục bộ (React Dev Server)
+    'http://localhost:8081', // Nếu bạn test Node.js và React trên cùng máy nhưng khác cổng
+    'http://localhost:5000', // Nếu bạn test Node.js và React trên cùng máy nhưng khác cổng
+    process.env.CLIENT_URL
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    },
+    credentials: true
+}));
+
 app.use(fileUpload({
   useTempFiles : true,
   tempFileDir : tempFileDir,
