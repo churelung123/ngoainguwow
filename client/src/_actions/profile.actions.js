@@ -16,10 +16,11 @@ function useProfileAction() {
     const alertActions = useAlertActions();
     const studentInfoAction = useStudentInfoAction();
     const [alert, setAlert] = useRecoilState(alertBachAtom);
+    const API_BASE_URL = process.env.REACT_APP_API_URL;
 
     async function getProfileById(Id) {
         console.log("get profile by id");
-        const response = await fetchWrapper.get(`http://localhost:3000/api/profile/${Id}`, null, null);
+        const response = await fetchWrapper.get(`${API_BASE_URL}/api/profile/${Id}`, null, null);
         if (response == null) {
             console.log("No response.");
             return null;
@@ -32,7 +33,7 @@ function useProfileAction() {
 
     async function getMyProfile() {
         console.log("get my profile");
-        const response = await fetchWrapper.get(`http://localhost:3000/api/profile/me`, null, null);
+        const response = await fetchWrapper.get(`${API_BASE_URL}/api/profile/me`, null, null);
         if (response == null) {
             console.log("No response.");
             return null;
@@ -57,7 +58,7 @@ function useProfileAction() {
             urlencoded.append(key,val);
             }
         )
-        const response = await fetchWrapper.post(`http://localhost:3000/api/profile/edit/${Id}`, "application/x-www-form-urlencoded", urlencoded);
+        const response = await fetchWrapper.post(`${API_BASE_URL}/api/profile/edit/${Id}`, "application/x-www-form-urlencoded", urlencoded);
         if (response == null) {
           console.log("No response");
         }
