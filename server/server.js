@@ -19,6 +19,7 @@ const allowedOrigins = [
     'https://ngoainguwow-1mc31dcrz-huynh-thanh-nguyens-projects.vercel.app'
 ];
 console.log('Backend allowedOrigins (at startup):', allowedOrigins);
+console.log('Value of process.env.CLIENT_URL (at startup):', process.env.CLIENT_URL);
 
 app.use(cors({
     origin: function (origin, callback) {
