@@ -1,0 +1,4 @@
+classId,course_code,className,teacher_id,assistantTeachers_ids,students_ids,schedule_dayOfWeek,schedule_startTime,schedule_endTime,schedule_room,tests
+E101-A,E,"Lớp E cơ bản A",GV001,"GV002","SV001,SV002",Thứ Hai,08:00,09:30,A101,""
+E201-B,E,"Lớp E1 nâng cao B",GV002,"GV001, GV002","SV001",Thứ Ba,10:00,11:30,B202,""
+IELTS45-C,PREIELTS,"Luyện thi IELTS 4-5.5 C",GV001,"GV002","SV002,SV001",Thứ Năm,14:00,15:30,C301,""

@@ -1,0 +1,10 @@
+name,role,gender,phone_number,parent_number,location,date_of_birth,email,vnu_id,username,password,teachingClasses,assistantTeachingClasses,enrolledClasses,completedClasses,testScores
+"Nguyễn Văn A",teacher,male,0901234567,,Hà Nội,757344000000,nguyenvana@email.com,GV001,vana.nguyen,password123,,,,
+"Trần Thị B",teacher,female,0987654321,,Hồ Chí Minh,788918400000,tranthib@email.com,GV002,thib.tran,securepass,,,,
+"Lê Văn C",Student,male,0333444555,0911222333,Hải Phòng,820492800000,levanc@email.com,SV001,vanc.le,studentpass,,,,
+"Phạm Thị D",Student,female,0777888999,0966777888,Đà Nẵng,852067200000,phamthid@email.com,SV002,thid.pham,strongpassword,,,,
+Hoang Thi E,teacher,female,0987654321,,Vung Tau,1992-11-18,thie@example.com,GV12121,thie,password,,,CLASS301|CLASS302,
+Truong Van F,Student,male,0976543210,0976543211,Bien Hoa,2004-09-01,vanf@example.com,SV11223,vanf,securepass,CLASS103,,,
+Le Thi G,teacher,female,0965432109,,Nha Trang,1988-06-12,thig@example.com,GV44556,thig,strongpass,,,CLASS202,CLASS201
+Pham Minh H,admin,male,0954321098,,Phu Quoc,1995-03-22,minhh@example.com,AD77889,minhh,adminpass,,,,
+Doan Thi I,Student,female,0943210987,0943210988,Quy Nhon,2001-07-08,thii@example.com,SV99001,thii,studentpass,"CLASS303|CLASS101","CLASS202",,,

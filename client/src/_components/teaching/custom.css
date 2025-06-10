@@ -1,0 +1,9 @@
+.even-row {
+  background-color: #eae7d6 !important;
+  /* Dòng chẵn */
+}
+
+.odd-row {
+  background-color: #d7f9fa !important;
+  /* Dòng lẻ */
+}
