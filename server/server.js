@@ -12,13 +12,16 @@ if (process.platform == "darwin") {
 
 const allowedOrigins = [
     'http://localhost:3000', // Cho phát triển cục bộ (React Dev Server)
-    'http://localhost:8081', // Nếu bạn test Node.js và React trên cùng máy nhưng khác cổng
-    'http://localhost:5000', // Nếu bạn test Node.js và React trên cùng máy nhưng khác cổng
-    process.env.CLIENT_URL
+    'http://localhost:8081',
+    'http://localhost:8081/',
+    'http://localhost:5000',
+    process.env.CLIENT_URL // Khi chạy local, giá trị này có thể không liên quan
 ];
+console.log('Backend allowedOrigins (at startup):', allowedOrigins);
 
 app.use(cors({
     origin: function (origin, callback) {
+      console.log('Incoming request origin:', origin); 
         if (!origin) return callback(null, true);
         if (allowedOrigins.indexOf(origin) === -1) {
             var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
