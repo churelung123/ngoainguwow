@@ -4,7 +4,6 @@ var cookieParser = require('cookie-parser')
 var router = express.Router();
 var fileUpload = require('express-fileupload')
 var cors = require('cors');
-var cors = require('cors');
 var tempFileDir = "/public/data";
 var json2xls = require('json2xls');
 if (process.platform == "darwin") {
@@ -16,9 +15,11 @@ const allowedOrigins = [
     'http://localhost:8081',
     'http://localhost:8081/',
     'http://localhost:5000',
-    process.env.CLIENT_URL // Khi chạy local, giá trị này có thể không liên quan
+    process.env.CLIENT_URL, // Khi chạy local, giá trị này có thể không liên quan
+    'https://ngoainguwow-1mc31dcrz-huynh-thanh-nguyens-projects.vercel.app'
 ];
 console.log('Backend allowedOrigins (at startup):', allowedOrigins);
+console.log('Value of process.env.CLIENT_URL (at startup):', process.env.CLIENT_URL);
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -90,17 +91,7 @@ app.use(attendanceRouter);
     var host = server.address().address
     var port = server.address().port
     console.log("Ung dung Node.js dang lang nghe tai dia chi: http://%s:%s", host, port)
-
-  const PORT = process.env.PORT || 8081; // Sử dụng biến môi trường PORT, hoặc 8081 nếu chạy local
-
-  var server = app.listen(PORT, function () { // Lắng nghe trên PORT
-    var host = server.address().address
-    var port = server.address().port
-    console.log("Ung dung Node.js dang lang nghe tai dia chi: http://%s:%s", host, port)
   });
 
   var chatConnection = new IOConnection(server); // Đảm bảo IOConnection nhận server chính
-
-  var chatConnection = new IOConnection(server); // Đảm bảo IOConnection nhận server chính
 })()
-
