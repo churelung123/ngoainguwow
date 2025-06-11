@@ -16,7 +16,6 @@ const allowedOrigins = [
     'http://localhost:8081/',
     'http://localhost:5000',
     process.env.CLIENT_URL, // Khi chạy local, giá trị này có thể không liên quan
-    'https://ngoainguwow-1mc31dcrz-huynh-thanh-nguyens-projects.vercel.app',
     "https://anhnguwow.vercel.app"
   
 ];
