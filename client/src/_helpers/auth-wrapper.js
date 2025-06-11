@@ -13,10 +13,11 @@ function useAuthWrapper(param) {
     const fetchWrapper = useFetchWrapper();
     const alertActions = useAlertActions();
     const profileAction = useProfileAction();
+    const API_BASE_URL = process.env.REACT_APP_API_URL;
 
     async function login(param){
         console.log("Login in wrapper called");
-        const response = await fetchWrapper.post("http://localhost:3000/auth/login", "application/x-www-form-urlencoded", param);
+        const response = await fetchWrapper.post(`${API_BASE_URL}/auth/login`, "application/x-www-form-urlencoded", param);
         if (response == null) {
             console.log("No response");
         }
@@ -55,7 +56,7 @@ function useAuthWrapper(param) {
     }
 
     async function loadUser(){
-        const response = await fetchWrapper.get("http://localhost:3000/api/profile/me", null, null);
+        const response = await fetchWrapper.get(`${API_BASE_URL}/api/profile/me`, null, null);
         if (response == null) {
             console.log("No response.");
         }
@@ -111,7 +112,7 @@ function useAuthWrapper(param) {
         urlencoded.append("email", params.email);
         let response = {message: ""};
         try {
-            const res = await fetchWrapper.post("http://localhost:3000/api/auth/forget_password", "application/x-www-form-urlencoded", urlencoded);
+            const res = await fetchWrapper.post(`${API_BASE_URL}/api/auth/forget_password`, "application/x-www-form-urlencoded", urlencoded);
             response = await res.json();
             if (response.status === "Success") {
                 setAlert({message: "Thành công", description: response.message});
