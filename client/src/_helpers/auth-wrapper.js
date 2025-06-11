@@ -46,7 +46,7 @@ function useAuthWrapper(param) {
         setAuth(token);
         var now = new Date();
         now.setMinutes( now.getMinutes() + 1000 );
-        document.cookie = `token=${token};expires=${now.toUTCString()};path=/`;
+        document.cookie = `token=${token};expires=${now.toUTCString()};path=/;SameSite=None;Secure`;
         console.log("1 minute token registered.");
     }
 
