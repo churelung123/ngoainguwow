@@ -12,10 +12,11 @@ function useStudentScoreAction (param) {
     const [score, setScore] = useRecoilState(scoreAtom);
     const [pscore, setpScore] = useRecoilState(pscoreAtom);
     const [alert, setAlert] = useRecoilState(alertBachAtom);
+    const API_BASE_URL = process.env.REACT_APP_API_URL;
 
     async function getScoreList(Class){
         console.log("get Student list called from studentInfo-action");
-        const response = await fetchWrapper.get(`http://localhost:3000/api/classes/${Class.class_id}/members/scores`, null, null);
+        const response = await fetchWrapper.get(`${API_BASE_URL}/api/classes/${Class.class_id}/members/scores`, null, null);
         if (response == null) {
             console.log("No response.");
             return null;
@@ -29,7 +30,7 @@ function useStudentScoreAction (param) {
 
     async function getScoreByID(vnu_id){
         // console.log("get score by id called from studentInfo-action");
-        const response = await fetchWrapper.get(`http://localhost:3000/api/scores/${vnu_id}`, null, null);
+        const response = await fetchWrapper.get(`${API_BASE_URL}/api/scores/${vnu_id}`, null, null);
         if (response == null) {
             console.log("No response.");
             return null;
@@ -40,7 +41,7 @@ function useStudentScoreAction (param) {
 
     async function getMyScore(){
         // console.log("get score by id called from studentInfo-action");
-        const response = await fetchWrapper.get(`http://localhost:3000/api/scores/me`, null, null);
+        const response = await fetchWrapper.get(`${API_BASE_URL}/api/scores/me`, null, null);
         if (response == null) {
             console.log("No response.");
             return null;
@@ -51,7 +52,7 @@ function useStudentScoreAction (param) {
 
     async function getSemesterByID(semesterId){
         // console.log("get semester by id called from studentInfo-action");
-        const response = await fetchWrapper.get(`http://localhost:3000/api/semesters/${semesterId}`, null, null);
+        const response = await fetchWrapper.get(`${API_BASE_URL}/api/semesters/${semesterId}`, null, null);
         if (response == null) {
             console.log("No response.");
             return {
@@ -66,7 +67,7 @@ function useStudentScoreAction (param) {
 
     async function getAllSemester(){
         // console.log("get semester by id called from studentInfo-action");
-        const response = await fetchWrapper.get(`http://localhost:3000/api/semesters/all`, null, null);
+        const response = await fetchWrapper.get(`${API_BASE_URL}/api/semesters/all`, null, null);
         if (response == null) {
             console.log("No response.");
             return [];

@@ -3,11 +3,35 @@ var app = express();
 var cookieParser = require('cookie-parser')
 var router = express.Router();
 var fileUpload = require('express-fileupload')
+var cors = require('cors');
 var tempFileDir = "/public/data";
 var json2xls = require('json2xls');
 if (process.platform == "darwin") {
   tempFileDir = "." + tempFileDir
 }
+
+const allowedOrigins = [
+    'http://localhost:3000', // Cho phát triển cục bộ (React Dev Server)
+    'http://localhost:8081',
+    'http://localhost:8081/',
+    'http://localhost:5000',
+    process.env.CLIENT_URL // Khi chạy local, giá trị này có thể không liên quan
+];
+console.log('Backend allowedOrigins (at startup):', allowedOrigins);
+
+app.use(cors({
+    origin: function (origin, callback) {
+      console.log('Incoming request origin:', origin); 
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    },
+    credentials: true
+}));
+
 app.use(fileUpload({
   useTempFiles : true,
   tempFileDir : tempFileDir,
@@ -58,11 +82,14 @@ app.use(postRouter);
 app.use(attendanceRouter);
 (async () => {
   await DBConnection.Init();
-  var server = app.listen(8081, function () {
-  var host = server.address().address
-  var port = server.address().port
-  console.log("Ung dung Node.js dang lang nghe tai dia chi: http://%s:%s", host, port)
+
+  const PORT = process.env.PORT || 8081; // Sử dụng biến môi trường PORT, hoặc 8081 nếu chạy local
+
+  var server = app.listen(PORT, function () { // Lắng nghe trên PORT
+    var host = server.address().address
+    var port = server.address().port
+    console.log("Ung dung Node.js dang lang nghe tai dia chi: http://%s:%s", host, port)
   });
-  serverWS.listen(5000);
-  var chatConnection = new IOConnection(serverWS);
+
+  var chatConnection = new IOConnection(server); // Đảm bảo IOConnection nhận server chính
 })()

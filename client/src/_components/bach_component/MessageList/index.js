@@ -18,6 +18,7 @@ export default function MessageList(props) {
   const chatAction = useChatAction();
   const chatWrapper = useChatWrapper();
   const NOT_MY_USER_ID = vnu_id
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
   let [targetName, setTargetName] = useState('');
   useEffect(() => {
 
@@ -33,7 +34,7 @@ export default function MessageList(props) {
     async function getTargetName(vnu_id) {
       // debugger
       if (vnu_id) {
-        let res = await axios.get('http://localhost:3000/api/profile/' + vnu_id)
+        let res = await axios.get(`${API_BASE_URL}/api/profile/` + vnu_id)
         res = res.data;
         // debugger
         setTargetName(res.name);

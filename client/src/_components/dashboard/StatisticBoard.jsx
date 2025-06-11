@@ -16,12 +16,13 @@ function StatisticBoard(props) {
   const [semesterData, setSemesterData] = useState([]);
   const fetchWrapper = useFetchWrapper();
   var refinedData = [];
+  const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     console.log("Reconstruct StatisticBoard");
     async function getSemesterData() {
       var tempSem = [];
-      let response = await fetchWrapper.get("http://localhost:3000/api/semesters/all", null, null);
+      let response = await fetchWrapper.get(`${API_BASE_URL}/api/semesters/all`, null, null);
       response = await response.json();
       console.log(response);
       if (response?.status === "Success") {
