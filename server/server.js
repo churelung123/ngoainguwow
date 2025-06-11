@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+app.set('trust proxy', 1);
 var cookieParser = require('cookie-parser')
 var router = express.Router();
 var fileUpload = require('express-fileupload')
