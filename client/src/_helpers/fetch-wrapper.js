@@ -32,6 +32,7 @@ function useFetchWrapper() {
               method,
               headers: myHeaders,
               redirect: 'follow',
+              credentials: 'include',
               body: body ? (header === "application/json" ? JSON.stringify(body) : body) : null,
             };
           
