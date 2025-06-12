@@ -43,12 +43,11 @@ function useAuthWrapper(param) {
     }
 
     function setLoginToken(token){
-        setAuth(token);
-        var now = new Date();
-        now.setMinutes( now.getMinutes() + 1000 );
-        document.cookie = `token=${token};expires=${now.toUTCString()};path=/;SameSite=None;Secure`;
-        console.log("1 minute token registered.");
-    }
+    setAuth(token);
+    // KHÔNG cần set cookie thủ công vì server đã set đúng
+    // localStorage có thể lưu làm dự phòng
+    localStorage.setItem("token", token);
+}
 
     function printLoginToken(token){
         console.log(document.cookie);
