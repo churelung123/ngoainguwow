@@ -26,6 +26,10 @@ function useFetchWrapper() {
         async function requestor(url, header = "application/json", body = null) {
             const myHeaders = new Headers();
             if (header) myHeaders.append("Content-Type", header);
+            const token = localStorage.getItem("token");
+            if (token && !url.endsWith("/auth/login")) {
+                myHeaders.append("Authorization", `Bearer ${token}`);
+            }
 
             const requestOptions = {
                 method,

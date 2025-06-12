@@ -7,7 +7,7 @@ const { v4: uuidv4 } = require('uuid');
 /** Xác định trạng thái của token có hợp lệ chưa
     req.authState được truyền vào req cùng senderVNUId và senderInstance*/
 async function validateToken(req, res, next) {
-    let token = req.cookies.token;
+    let token = req.cookies.token || (req.headers.authorization && req.headers.authorization.split(" ")[1]);
     try {
         // var decoded = jwt.verify(token, Configs.SECRET_KEY);
         if (!token) throw Error("TokenNotFound")
