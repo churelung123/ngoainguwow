@@ -59,24 +59,23 @@ function useFetchWrapper() {
     }
 
     function requestFile(method) {
-
         async function requestor(url, header, body) {
-            var myHeaders = new Headers();
+            const myHeaders = new Headers();
             if (header) myHeaders.append("Content-Type", header);
+
             const requestOptions = {
                 method: method,
-                mode: "no-cors",
                 headers: myHeaders,
-                redirect: 'follow'
+                redirect: 'follow',
+                credentials: 'include',
             };
-            if (method == 'DELETE') {
-                requestOptions.mode = 'cors';
-            }
+
             if (body) {
-                requestOptions.headers['Content-Type'] = header;
                 requestOptions.body = body;
             }
-            return await fetch(url, requestOptions);
+            const finalURL = url.startsWith("http") ? url : `${API_BASE_URL}${url}`;
+
+            return await fetch(finalURL, requestOptions);
         }
 
         return async (url, header, body) => {
