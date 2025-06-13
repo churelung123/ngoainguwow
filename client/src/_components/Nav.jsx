@@ -33,14 +33,17 @@ const { Sider } = Layout;
 
 export { Nav };
 
-function Nav({ classID, auth, onLogout, isNavCollapsed, toggleNavCollapsed }) {
+function Nav(props) {
+  var classID = props.classID ? props.classID : "";
   const location = useLocation();
 
   // const [pathname, setPathname] = useState(location.pathname);
-  const [collapsed, setCollapsed] = useState(window.innerWidth < 768);
-  const onCollapse = (collapsed) => setCollapsed(collapsed);
+  const { navCollapsed, setNavCollapsed } = props;
+  const onCollapse = (collapsed) => setNavCollapsed(collapsed);
   const userActions = useUserActions();
   const classWrapper = useClassWrapper();
+  const auth = props.auth;
+  const onLogout = props.onLogout;
   var userData = JSON.parse(localStorage.getItem("userData"));
   // Đọc trạng thái làm bài kiểm tra từ Recoil
   const isTakingTest = useRecoilValue(isTakingTestAtom); // Đã thêm dòng này
@@ -48,7 +51,7 @@ function Nav({ classID, auth, onLogout, isNavCollapsed, toggleNavCollapsed }) {
 
   useEffect(() => {
     const handleResize = () => {
-      setCollapsed(window.innerWidth < 768);
+      setNavCollapsed(window.innerWidth < 768);
     };
 
     window.addEventListener('resize', handleResize);
@@ -75,7 +78,8 @@ function Nav({ classID, auth, onLogout, isNavCollapsed, toggleNavCollapsed }) {
         top: 64,
         position: "sticky"
       }}
-      collapsible collapsed={collapsed}
+      collapsible
+      collapsed={navCollapsed}
       onCollapse={onCollapse}
     >
       <div className="logo" />
@@ -137,7 +141,7 @@ function Nav({ classID, auth, onLogout, isNavCollapsed, toggleNavCollapsed }) {
                 <span>Quản lý Khóa học</span>
                 <Link to={`/courses`}></Link>
               </Menu.Item>
-              
+
               <Menu.Item key={`/users`} disabled={isTakingTest}> {/* Đã thêm disabled */}
                 <TeamOutlined />
                 <span>Quản lý Người dùng</span>

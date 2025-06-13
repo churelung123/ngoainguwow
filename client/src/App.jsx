@@ -19,8 +19,8 @@ import { StudentTest } from '_components/studenttest';
 import { FormElementManagement } from '_components/classdetail';
 
 import { authAtom, classPickerVisibleAtom, loadingVisibleAtom, isTakingTestAtom } from '_state';
-import { MenuOutlined } from '@ant-design/icons';
-import { Layout, Typography, Button } from 'antd';
+import { Layout, Typography, Button } from 'antd'; // Import Button
+import { MenuOutlined } from '@ant-design/icons'; // Import MenuOutlined
 
 import LinearProgress from '@mui/material/LinearProgress';
 import { DBPortal } from '_components/dbportal/DBPortal';
@@ -134,24 +134,7 @@ function MainLayout({
     const location = useLocation();
     const [isTakingTest, setIsTakingTest] = useRecoilState(isTakingTestAtom);
     const [isMobileView, setIsMobileView] = useState(window.innerWidth < 768);
-    const [isNavCollapsed, setIsNavCollapsed] = useState(window.innerWidth < 768);
-
-    useEffect(() => {
-        const handleResize = () => {
-            const currentIsMobile = window.innerWidth < 768;
-            setIsMobileView(currentIsMobile);
-            setIsNavCollapsed(currentIsMobile);
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-    const toggleNavCollapsed = () => {
-        setIsNavCollapsed(prev => !prev);
-    };
+    const [navCollapsed, setNavCollapsed] = useState(window.innerWidth < 768); // Thêm state cho navCollapsed
 
     useEffect(() => {
         const isTestPage = location.pathname.includes('/tests/') && location.pathname.includes('/Student/');
@@ -175,44 +158,41 @@ function MainLayout({
         }
     }, [location.pathname, scrollTargetId]);
 
+    const toggleNav = () => {
+        setNavCollapsed(!navCollapsed);
+    };
+
     return (
         <Layout>
             <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                        {/* Nút Hamburger/Menu chỉ hiện thị trên mobile */}
-                        {isMobileView && (
-                            <Button
-                                type="text"
-                                onClick={toggleNavCollapsed}
-                                style={{ color: 'white', fontSize: '20px', marginRight: '10px' }}
-                                icon={<MenuOutlined />}
-                            />
-                        )}
-                        <img src={logo} alt="Logo WOW English" style={{ height: '80px', marginRight: '10px' }} />
-                        <Title style={{ color: 'white', margin: 0 }} level={3} className={isMobileView ? 'hide-on-mobile' : ''}> WOW English School </Title>
-                    </div>
-                    {/* Header Nav Buttons - Ẩn trên mobile để Nav quản lý */}
-                    {!isMobileView && (
-                        <div className="header-nav-buttons">
-                            <button className="header-nav-button" onClick={() => scrollToElement('news-posts')} disabled={isTakingTest}>Tin tức</button>
-                            <button className="header-nav-button" onClick={() => scrollToElement('course-posts')} disabled={isTakingTest}>Khóa học</button>
-                            <button className="header-nav-button" onClick={() => scrollToElement('app-footer')} disabled={isTakingTest}>Liên Hệ</button>
-                            {authWrapper.tokenValue ? (
-                                <button className="header-nav-button" onClick={onLogout} disabled={isTakingTest}>Đăng xuất</button>
-                            ) : (
-                                <button className="header-nav-button" onClick={() => setLoginModalVisible(true)}>Đăng nhập</button>
-                            )}
-                        </div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    {isMobileView && authWrapper.tokenValue && (
+                        <Button type="text" onClick={toggleNav} style={{ color: 'white', marginRight: '10px' }}>
+                            <MenuOutlined />
+                        </Button>
                     )}
-                </Header>
-                <Layout>
-                    {/* Truyền trạng thái và hàm toggle cho Nav */}
-                    <Nav
-                        auth={authWrapper.tokenValue}
-                        onLogout={onLogout}
-                        isNavCollapsed={isNavCollapsed}
-                        toggleNavCollapsed={toggleNavCollapsed}
-                    />
+                    <img src={logo} alt="Logo WOW English" style={{ height: '80px', marginRight: '10px' }} />
+                    <Title style={{ color: 'white', margin: 0 }} level={3} className={isMobileView ? 'hide-on-mobile' : ''}> WOW English School </Title>
+                </div>
+                <div className="header-nav-buttons">
+                    <button className="header-nav-button" onClick={() => scrollToElement('news-posts')} disabled={isTakingTest}>Tin tức</button>
+                    <button className="header-nav-button" onClick={() => scrollToElement('course-posts')} disabled={isTakingTest}>Khóa học</button>
+                    <button className="header-nav-button" onClick={() => scrollToElement('app-footer')} disabled={isTakingTest}>Liên Hệ</button>
+                    {authWrapper.tokenValue ? (
+                        <button className="header-nav-button" onClick={onLogout} disabled={isTakingTest}>Đăng xuất</button>
+                    ) : (
+                        <button className="header-nav-button" onClick={() => setLoginModalVisible(true)}>Đăng nhập</button>
+                    )}
+                </div>
+            </Header>
+            <Layout>
+                <Nav
+                    onLogout={onLogout}
+                    auth={authWrapper.tokenValue}
+                    userData={userData}
+                    navCollapsed={navCollapsed}
+                    setNavCollapsed={setNavCollapsed}
+                />
                 <Layout>
                     <Route exact path="/">
                         <HomePageContent userRole={userData?.role} userId={userData?._id} />
@@ -255,7 +235,7 @@ function MainLayout({
                             <Redirect from="*" to="/" />
                         </Switch>
                     </Content>
-                    <AppFooter userRole={userData?.role} userId={userData?._id} isTakingTest={isTakingTest}/>
+                    <AppFooter userRole={userData?.role} userId={userData?._id} isTakingTest={isTakingTest} />
                 </Layout>
             </Layout>
             <Account visible={loginModalVisible} onClose={handleLoginModalClose} history={history} />
