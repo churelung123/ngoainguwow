@@ -186,13 +186,15 @@ function MainLayout({
                 </div>
             </Header>
             <Layout>
-                <Nav
-                    onLogout={onLogout}
-                    auth={authWrapper.tokenValue}
-                    userData={userData}
-                    navCollapsed={navCollapsed}
-                    setNavCollapsed={setNavCollapsed}
-                />
+                {(!isMobileView || !navCollapsed) && authWrapper.tokenValue && (
+                    <Nav
+                        onLogout={onLogout}
+                        auth={authWrapper.tokenValue}
+                        userData={userData}
+                        navCollapsed={navCollapsed}
+                        setNavCollapsed={setNavCollapsed}
+                    />
+                )}
                 <Layout>
                     <Route exact path="/">
                         <HomePageContent userRole={userData?.role} userId={userData?._id} />

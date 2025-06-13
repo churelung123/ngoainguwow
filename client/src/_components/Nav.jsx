@@ -71,6 +71,10 @@ function Nav(props) {
 
   return (
     <Sider
+      collapsible
+      collapsed={navCollapsed}
+      onCollapse={onCollapse}
+      className={navCollapsed && window.innerWidth < 768 ? 'hide-sider' : ''}
       style={{
         overflow: 'auto',
         height: '90vh',
@@ -78,9 +82,6 @@ function Nav(props) {
         top: 64,
         position: "sticky"
       }}
-      collapsible
-      collapsed={navCollapsed}
-      onCollapse={onCollapse}
     >
       <div className="logo" />
       <Menu
