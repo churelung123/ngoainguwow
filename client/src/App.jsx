@@ -192,17 +192,17 @@ function MainLayout({
                     icon={<MenuOutlined />}
                     onClick={toggleNav}
                     style={{
+                        backgroundColor: 'transparent',
                         position: 'fixed',
                         top: 16,
                         left: 12,
                         zIndex: 1000,
                         width: 40,
                         height: 40,
-                        borderRadius: '50%',
                         padding: 0,
                         display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
+                        alignItems: 'left',
+                        justifyContent: 'left'
                     }}
                 />
             )}
