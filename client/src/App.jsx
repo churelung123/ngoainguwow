@@ -166,24 +166,6 @@ function MainLayout({
         <Layout>
             <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                    {isMobileView && authWrapper.tokenValue && (
-                        <Button
-                            type="text"
-                            onClick={toggleNav}
-                            icon={<MenuOutlined />}
-                            style={{
-                                color: 'white',
-                                padding: '4px',
-                                fontSize: '18px',
-                                marginRight: '8px',
-                                width: '36px',
-                                height: '36px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}
-                        />
-                    )}
                     <img src={logo} alt="Logo WOW English" style={{ height: '80px', marginRight: '10px' }} />
                     <Title
                         style={{ color: 'white', margin: 0 }}
@@ -204,6 +186,26 @@ function MainLayout({
                     )}
                 </div>
             </Header>
+            {isMobileView && authWrapper.tokenValue && (
+                <Button
+                    type="primary"
+                    icon={<MenuOutlined />}
+                    onClick={toggleNav}
+                    style={{
+                        position: 'fixed',
+                        top: 16,
+                        left: 12,
+                        zIndex: 1000,
+                        width: 40,
+                        height: 40,
+                        borderRadius: '50%',
+                        padding: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                    }}
+                />
+            )}
             <Layout>
                 {(!isMobileView || !navCollapsed) && authWrapper.tokenValue && (
                     <Nav
