@@ -167,12 +167,31 @@ function MainLayout({
             <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     {isMobileView && authWrapper.tokenValue && (
-                        <Button type="text" onClick={toggleNav} style={{ color: 'white', marginRight: '10px' }}>
-                            <MenuOutlined />
-                        </Button>
+                        <Button
+                            type="text"
+                            onClick={toggleNav}
+                            icon={<MenuOutlined />}
+                            style={{
+                                color: 'white',
+                                padding: '4px',
+                                fontSize: '18px',
+                                marginRight: '8px',
+                                width: '36px',
+                                height: '36px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                            }}
+                        />
                     )}
                     <img src={logo} alt="Logo WOW English" style={{ height: '80px', marginRight: '10px' }} />
-                    <Title style={{ color: 'white', margin: 0 }} level={3} className={isMobileView ? 'hide-on-mobile' : ''}> WOW English School </Title>
+                    <Title
+                        style={{ color: 'white', margin: 0 }}
+                        level={3}
+                        className={isMobileView ? 'hide-on-mobile' : ''}
+                    >
+                        WOW English School
+                    </Title>
                 </div>
                 <div className="header-nav-buttons">
                     <button className="header-nav-button" onClick={() => scrollToElement('news-posts')} disabled={isTakingTest}>Tin tức</button>
