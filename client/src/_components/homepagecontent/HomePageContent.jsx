@@ -108,14 +108,15 @@ export { HomePageContent };
                     }}
                 />
             </div>
-            <div>
+            {/* Thêm một div bao bọc các phần tin tức/khóa học để quản lý khoảng cách nếu cần */}
+            <div className="homepage-sections-wrapper">
                 {/* Khu vực Tin tức */}
                 <div id='news-posts'>
                     <PostSectionLayout
                         sectionTitle="Tin Tức Mới Nhất"
                         latestPost={latestNewsPost}
                         otherPosts={otherNewsPosts}
-                        seeMorePath="/news" // Đường dẫn đến trang danh sách tất cả tin tức
+                        seeMorePath="/news"
                     />
                 </div>
 
@@ -125,7 +126,7 @@ export { HomePageContent };
                         sectionTitle="Khóa Học Nổi Bật"
                         latestPost={latestCoursePost}
                         otherPosts={otherCoursePosts}
-                        seeMorePath="/courses" // Đường dẫn đến trang danh sách tất cả khóa học
+                        seeMorePath="/courses"
                     />
                 </div>
             </div>
@@ -140,7 +141,6 @@ export { HomePageContent };
                 </button>
             )}
         </div>
-
     );
 };
 

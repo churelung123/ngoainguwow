@@ -132,6 +132,18 @@ function MainLayout({
 }) {
     const location = useLocation();
     const [isTakingTest, setIsTakingTest] = useRecoilState(isTakingTestAtom);
+    const [isMobileView, setIsMobileView] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobileView(window.innerWidth < 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     useEffect(() => {
         const isTestPage = location.pathname.includes('/tests/') && location.pathname.includes('/Student/');
@@ -160,7 +172,7 @@ function MainLayout({
             <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <img src={logo} alt="Logo WOW English" style={{ height: '80px', marginRight: '10px' }} />
-                    <Title style={{ color: 'white', margin: 0 }} level={3}> WOW English School </Title>
+                    <Title style={{ color: 'white', margin: 0 }} level={3} className={isMobileView ? 'hide-on-mobile' : ''}> WOW English School </Title>
                 </div>
                 <div className="header-nav-buttons">
                     <button className="header-nav-button" onClick={() => scrollToElement('news-posts')} disabled={isTakingTest}>Tin tức</button>

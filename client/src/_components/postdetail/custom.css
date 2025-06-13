@@ -1,44 +1,166 @@
-.quill-content-display h1, .quill-content-display h2 {
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-  color: #2c3e50;
+.post-display-title {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3em;
 }
-.quill-content-display p {
-  margin-bottom: 1em;
-  line-height: 1.7;
+
+.post-display-meta-info {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
 }
+
+.post-display-author {
+    font-weight: bold;
+}
+
+.meta-info-separator {
+    color: #ccc;
+}
+
+.post-display-thumbnail {
+    width: 100%; /* Đặt mặc định 100% để co giãn */
+    max-width: 900px; /* Max width để không quá lớn trên màn hình rộng */
+    height: auto; /* Giữ tỷ lệ khung hình */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.quill-content-display {
+    font-size: 1.1em;
+    color: #444;
+    word-wrap: break-word; /* Đảm bảo từ dài không tràn ra ngoài */
+    overflow-wrap: break-word;
+}
+
+/* Đảm bảo ảnh bên trong nội dung Quill cũng đáp ứng */
 .quill-content-display img {
-  max-width: 50%;
-  height: auto;
-  border-radius: 4px;
-  margin: 15px 0;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+    max-width: 100%;
+    height: auto;
+    display: block; /* Loại bỏ khoảng trắng dưới ảnh */
+    margin: 0 auto 1em auto; /* Căn giữa và tạo khoảng cách dưới */
 }
-.quill-content-display blockquote {
-  border-left: 4px solid #bdc3c7;
-  padding-left: 1em;
-  margin: 1.5em 0;
-  font-style: italic;
-  color: #7f8c8d;
+
+/* Đảm bảo bảng bên trong nội dung Quill cũng đáp ứng */
+.quill-content-display table {
+    max-width: 100%;
+    overflow-x: auto; /* Cho phép cuộn ngang nếu bảng quá rộng */
+    display: block; /* Quan trọng để overflow-x hoạt động */
+    border-collapse: collapse;
 }
-.quill-content-display a {
-  color: #3498db;
-  text-decoration: none;
+
+.quill-content-display table td,
+.quill-content-display table th {
+    white-space: normal; /* Cho phép ngắt dòng trong ô bảng */
 }
-.quill-content-display a:hover {
-  text-decoration: underline;
+
+
+.post-display-tags-container {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
 }
-.quill-content-display ul, .quill-content-display ol {
-  padding-left: 2em;
-  margin-bottom: 1em;
+
+.post-display-tags-label {
+    margin-right: 10px;
+    font-size: 1em;
 }
-.quill-content-display pre {
-  background-color: #f3f4f6;
-  padding: 1em;
-  border-radius: 4px;
-  overflow-x: auto;
-  font-family: 'Courier New', Courier, monospace;
-  border: 1px solid #e5e7eb;
+
+.post-display-tag {
+    display: inline-block;
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+/* Styles cho PostDetail Container */
+.post-detail-container {
+    max-width: 100%; /* Đảm bảo container không bị tràn */
+    margin: 20px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.loading-error-message {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1.2em;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-error-message.error-message {
+    color: red;
+}
+
+/* Media Queries cho màn hình nhỏ */
+@media (max-width: 767px) {
+    /* Điều chỉnh font-size cho tiêu đề bài viết */
+    .post-display-title {
+        font-size: 1.8em;
+    }
+
+    /* Điều chỉnh font-size cho nội dung bài viết */
+    .quill-content-display {
+        font-size: 1em;
+    }
+
+    /* Điều chỉnh padding và margin cho container */
+    .post-detail-container {
+        padding: 15px;
+        margin: 10px auto;
+    }
+
+    /* Điều chỉnh kích thước ảnh thumbnail */
+    .post-display-thumbnail {
+        width: 100%; /* Đảm bảo ảnh thumbnail full chiều rộng */
+        max-height: 300px; /* Giảm chiều cao tối đa để ảnh không quá lớn */
+    }
+
+    /* Đảm bảo các item meta info hiển thị theo cột hoặc ít hơn trên hàng */
+    .post-display-meta-info {
+        flex-direction: column; /* Hiển thị theo cột */
+        align-items: flex-start; /* Căn trái */
+        gap: 5px; /* Giảm khoảng cách giữa các mục */
+        font-size: 0.85em; /* Giảm kích thước font */
+    }
+
+    .meta-info-separator {
+        display: none; /* Ẩn dấu | khi hiển thị theo cột */
+    }
+
+    .post-display-tags-container {
+        margin-top: 20px;
+        padding-top: 10px;
+    }
+
+    .post-display-tag {
+        padding: 4px 8px;
+        font-size: 0.8em;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
 }

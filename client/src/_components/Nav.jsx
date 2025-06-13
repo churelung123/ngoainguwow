@@ -38,7 +38,7 @@ function Nav(props) {
   const location = useLocation();
 
   // const [pathname, setPathname] = useState(location.pathname);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(window.innerWidth < 768);
   const onCollapse = (collapsed) => setCollapsed(collapsed);
   const userActions = useUserActions();
   const classWrapper = useClassWrapper();
@@ -48,6 +48,17 @@ function Nav(props) {
   // Đọc trạng thái làm bài kiểm tra từ Recoil
   const isTakingTest = useRecoilValue(isTakingTestAtom); // Đã thêm dòng này
   // only show nav when logged in
+
+  useEffect(() => {
+    const handleResize = () => {
+      setCollapsed(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     console.log(location.pathname)

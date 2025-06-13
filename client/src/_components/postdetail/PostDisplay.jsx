@@ -72,12 +72,10 @@ const PostDisplay = ({ post }) => {
         return null;
     }
 
-    // Làm sạch nội dung HTML từ React Quill trước khi render
     const cleanHtmlContent = DOMPurify.sanitize(post.content, {
         USE_PROFILES: { html: true }
     });
 
-    // Hàm helper để tạo URL Cloudinary đã biến đổi (nếu bạn muốn tối ưu ảnh)
     const getTransformedCloudinaryUrl = (originalUrl, transformations) => {
         if (!originalUrl || !originalUrl.includes('res.cloudinary.com') || !transformations) {
             return originalUrl;
@@ -90,17 +88,17 @@ const PostDisplay = ({ post }) => {
     };
 
     return (
-        <> {/* Sử dụng Fragment hoặc một div bao bọc nếu cần style chung cho toàn bộ display */}
-            <h1 style={titleStyle}>{post.title}</h1>
+        <>
+            <h1 className="post-display-title">{post.title}</h1>
 
-            <div style={metaInfoStyle}>
+            <div className="post-display-meta-info">
                 {post.author && (
-                    <span style={authorStyle}>
+                    <span className="post-display-author">
                         Tác giả: {post.author.name || 'Không rõ'}
                     </span>
                 )}
-                {post.author && <span style={{color: '#ccc'}}>|</span>} {/* Chỉ hiển thị nếu có tác giả */}
-                <span style={dateStyle}>
+                {post.author && <span className="meta-info-separator">|</span>}
+                <span className="post-display-date">
                     Ngày đăng: {new Date(post.createdAt || post.created_date || Date.now()).toLocaleDateString('vi-VN', {
                         year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
                     })}
@@ -111,21 +109,20 @@ const PostDisplay = ({ post }) => {
                 <img
                     src={getTransformedCloudinaryUrl(post.imageUrl, "w_900,c_limit,q_auto,f_auto")}
                     alt={post.title}
-                    style={thumbnailStyle}
+                    className="post-display-thumbnail"
                 />
             )}
 
             <div
                 className="quill-content-display"
-                style={contentStyle}
                 dangerouslySetInnerHTML={{ __html: cleanHtmlContent }}
             />
 
             {post.tags && post.tags.length > 0 && (
-                <div style={tagsContainerStyle}>
-                    <strong style={{marginRight: '10px', fontSize: '1em'}}>Tags:</strong>
+                <div className="post-display-tags-container">
+                    <strong className="post-display-tags-label">Tags:</strong>
                     {post.tags.map((tag, index) => (
-                        <span key={index} style={tagStyle}>{tag}</span>
+                        <span key={index} className="post-display-tag">{tag}</span>
                     ))}
                 </div>
             )}
