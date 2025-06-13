@@ -201,8 +201,9 @@ function MainLayout({
                         height: 40,
                         padding: 0,
                         display: 'flex',
-                        alignItems: 'left',
+                        alignItems: 'center',
                         justifyContent: 'left'
+                        border: 'none'
                     }}
                 />
             )}
