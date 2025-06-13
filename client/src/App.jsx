@@ -202,7 +202,7 @@ function MainLayout({
                         padding: 0,
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'left'
+                        justifyContent: 'left',
                         border: 'none'
                     }}
                 />
