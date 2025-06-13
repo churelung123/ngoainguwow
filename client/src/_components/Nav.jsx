@@ -33,8 +33,7 @@ const { Sider } = Layout;
 
 export { Nav };
 
-function Nav(props) {
-  var classID = props.classID ? props.classID : "";
+function Nav({ classID, auth, onLogout, isNavCollapsed, toggleNavCollapsed }) {
   const location = useLocation();
 
   // const [pathname, setPathname] = useState(location.pathname);
@@ -42,8 +41,6 @@ function Nav(props) {
   const onCollapse = (collapsed) => setCollapsed(collapsed);
   const userActions = useUserActions();
   const classWrapper = useClassWrapper();
-  const auth = props.auth;
-  const onLogout = props.onLogout;
   var userData = JSON.parse(localStorage.getItem("userData"));
   // Đọc trạng thái làm bài kiểm tra từ Recoil
   const isTakingTest = useRecoilValue(isTakingTestAtom); // Đã thêm dòng này
