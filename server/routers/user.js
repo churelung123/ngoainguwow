@@ -1,9 +1,13 @@
-const { validateToken } = require('../middleware/auth-middleware/auth')
-const { getProfileById, validateEditProfileArgument, editProfileById } = require('../middleware/user-middleware/user');
+const { validateToken, checkIsAdmin } = require('../middleware/auth-middleware/auth')
+const { getProfileById, validateEditProfileArgument, editProfileById, getAllStudentsWithTuition, updateStudentTuition } = require('../middleware/user-middleware/user');
 const Config = require('../configs/Constants');
 const userRouter = require('express').Router();
 userRouter.get(Config.API_PATH.PROFILE_BY_ID , validateToken, getProfileById);
 userRouter.post(Config.API_PATH.SET_PROFILE_BY_ID, validateToken, validateEditProfileArgument, editProfileById);
+
+userRouter.get('/api/admin/students-with-tuition', validateToken, checkIsAdmin, getAllStudentsWithTuition);
+
+userRouter.post('/api/admin/update-student-tuition', validateToken, checkIsAdmin, updateStudentTuition);
 
 // 1. Route để lấy ID của Admin
 userRouter.get('/api/admin/admin-id', async (req, res) => {

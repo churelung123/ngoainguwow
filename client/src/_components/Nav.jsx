@@ -148,6 +148,11 @@ function Nav(props) {
                 <span>Quản lý Người dùng</span>
                 <Link to={`/users`}></Link>
               </Menu.Item>
+              <Menu.Item key={`/tuition-management`} disabled={isTakingTest}>
+                <BookOutlined />
+                <span>Quản lý Học phí</span>
+                <Link to={`/tuition-management`}></Link>
+              </Menu.Item>
             </>
           )}
         </>

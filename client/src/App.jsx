@@ -37,6 +37,7 @@ import { CreatePostPage } from '_components/homepagecontent/CreatePostPage';
 import { AdminClassesPage } from '_components/admin/AdminClassesPage';
 import { AdminCoursesPage } from '_components/admin/AdminCoursesPage';
 import { AdminUserPage } from '_components/admin/AdminUserPage';
+import { AdminTuitionPage } from '_components/admin/AdminTuitionPage';
 
 import './index.css';
 
@@ -254,6 +255,7 @@ function MainLayout({
                                     <PrivateRoute exact path="/classes" component={AdminClassesPage} />
                                     <PrivateRoute exact path="/courses" component={AdminCoursesPage} />
                                     <PrivateRoute exact path="/users" component={AdminUserPage} />
+                                    <PrivateRoute exact path="/tuition-management" component={AdminTuitionPage} />
                                 </>
                             )}
                             <Redirect from="*" to="/" />
